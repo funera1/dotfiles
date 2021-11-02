@@ -1,0 +1,13 @@
+clear lock
+
+
+keycode 66 = Control_L
+keycode 9 = grave asciitilde grave asciitilde 
+keycode 61 = slash question
+keycode 111 = Up
+keycode 133 = Escape
+keycode 102 = Escape
+!keycode 112 = Up
+
+add control = Control_L
+
