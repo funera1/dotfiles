@@ -93,6 +93,9 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set clipboard=unnamedplus
 set belloff=all
 
+"Esc->jj
+inoremap <silent> jj <ESC>
+
 "縦移動素早く
 nnoremap <S-j> 5j
 nnoremap <S-k> 5k
