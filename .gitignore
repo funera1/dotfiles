@@ -1,1 +1,3 @@
 .vim/dein/repos/github.com/*
+.vim/dein/.*
+.vim/dein/dein/.*
