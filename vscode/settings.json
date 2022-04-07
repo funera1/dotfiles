@@ -5,14 +5,12 @@
     "terminal.integrated.inheritEnv": false,
     "keyboard.dispatch": "keyCode",
     "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb",
-        "*.db": "sqlite-viewer.option"
+        "*.ipynb": "jupyter.notebook.ipynb"
     },
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
 
- 
    // vim
     "vim.camelCaseMotion.enable": true, // leaer->オペレータでCamel単位で選択
     "vim.easymotion": true, // 文字列カーソルジャンプ拡張機能
@@ -96,24 +94,24 @@
         { "before": ["K"], "after": ["5", "k"] },
         // 下移動
         { "before": ["J"], "after": ["5", "j"] },
-        {
-            "before": ["p"],
-            "after": ["p", "g", "v", "y", "e"]
-        },
     ],
     "liveshare.presence": false,
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 1,
     "terminal.integrated.tabs.enabled": true,
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
     },
-    "python.defaultInterpreterPath": "/bin/python3",
-    "jupyter.logging.level": "error",
-    "explorer.confirmDelete": false,
-    "editor.wordWrap": "off",
-    "go.toolsManagement.autoUpdate": true,
-    "workbench.colorTheme": "Monokai Pro",
-    "workbench.iconTheme": "Monokai Pro Icons",
+    "python.defaultInterpreterPath": "/home/funera1/anaconda3/envs/my_env/bin/python",
+    "terminal.integrated.commandsToSkipShell": [
+        "-workbench.action.quickOpen"
+    ],
+    "editor.largeFileOptimizations": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
     "bracketPairColorizer.depreciation-notice": false,
+    "workbench.colorTheme": "Monokai Pro",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/funera1/.config/nvim/init.vim",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
+    "workbench.iconTheme": "Monokai Pro Icons",
+ 
 }
