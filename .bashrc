@@ -150,7 +150,7 @@ function runcpp () {
         ./a.out <input.txt> output.txt
     fi
 }
-#alias vim='nvim'
+alias vim='nvim'
 alias python='python3'
 alias pip='pip3'
 
@@ -167,12 +167,88 @@ function topcdr(){
 alias j='z'
 
 #xmodmap
-xmodmap ~/.xmodmap
+#xmodmap ~/.xmodmap
 
 #GOPATH
 export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+#peco
+peco_search_history() {
+	local l=$(HISTTIMEFORMAT= history | \
+	sort -r | sed -E s/^\ *[0-9]\+\ \+// | \
+	peco --query "$READLINE_LINE")
+	READLINE_LINE="$l"
+	READLINE_POINT=${#l}
+}
+bind -x '"\C-r": peco_search_history'
+
+#xmodmap
+alias xmod='xmodmap ~/.xmodmap'
+#if [[ -f "$HOME/.xmodmap"]]; then
+#	export DISPLAY=:0
+#	export LIBGL_ALWAYS_INDIRECT=1
+#	xmodmap "$HOME/.xmodmap" ^> /dev/null
+#fi
+
+
+# ディレクトリ下grep
+alias grepAll="find ./ -type f | xargs grep $1"
+
+# Git
+function gitmain() {
+  set -x
+  git config --global user.name "daigo-f"
+  git config --global user.email "daigo.fujii@skewers.me"
+  set +x
+}
+
+function gitsub() {
+  set -x
+  git config --global user.name "funera1"
+  git config --global user.email "funeral7776@gmail.com"
+  set +x
+}
+
+fzf-git-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --color=always --all --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+fzf-git-checkout() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    # If branch name starts with 'remotes/' then it is a remote branch. By
+    # using --track and a remote branch name, it is the same as:
+    # git checkout -b branchName --track origin/branchName
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track $branch
+    else
+        git checkout $branch;
+    fi
+}
+alias gb='fzf-git-branch'
+alias gco='fzf-git-checkout'
+
+# xsel
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
