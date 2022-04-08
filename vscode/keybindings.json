@@ -87,7 +87,8 @@
     },
     {
         "key": "ctrl+r",
-        "command": "workbench.action.previousEditor"
+        "command": "workbench.action.previousEditor",
+        "when": "editorTextFocus"
     },
     {
         "key": "ctrl+pageup",
@@ -178,7 +179,7 @@
     {
         "key": "ctrl+h",
         "command": "workbench.action.toggleSidebarVisibility",
-        "when": "!filesExplorerFocus"
+        "when": "!filesExplorerFocus && vim.mode == 'Normal'"
     },
     {
         "key": "ctrl+j",
