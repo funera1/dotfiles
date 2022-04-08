@@ -227,5 +227,41 @@
         "key": "ctrl+j",
         "command": "-workbench.action.togglePanel",
         "when": "terminalFocus"
-    }
+    },
+    // tmux
+    {
+        "key": "ctrl+t ctrl+h",
+        "command": "workbench.action.focusLeftGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+t ctrl+l",
+        "command": "workbench.action.focusRightGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+t ctrl+j",
+        "command": "workbench.action.focusBelowGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+t ctrl+k",
+        "command": "workbench.action.focusAboveGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+t shift+\\",
+        "command": "workbench.action.splitEditor",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+t -",
+        "command": "workbench.action.splitEditorOrthogonal",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+t ctrl+q",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "editorFocus"
+    },
 ]
