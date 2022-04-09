@@ -179,7 +179,7 @@
     {
         "key": "ctrl+h",
         "command": "workbench.action.toggleSidebarVisibility",
-        "when": "!filesExplorerFocus && vim.mode == 'Normal'"
+        "when": "filesExplorerFocus && vim.mode == 'Normal'"
     },
     {
         "key": "ctrl+j",
