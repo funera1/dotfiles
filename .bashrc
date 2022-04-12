@@ -150,7 +150,6 @@ function runcpp () {
         ./a.out <input.txt> output.txt
     fi
 }
-alias vim='nvim'
 alias python='python3'
 alias pip='pip3'
 
@@ -248,7 +247,14 @@ fzf-git-checkout() {
 }
 alias gb='fzf-git-branch'
 alias gco='fzf-git-checkout'
+alias gp='git push'
+alias gcm='git commit -m'
+alias gs='git status'
+alias ga='git add'
+
 
 # xsel
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
