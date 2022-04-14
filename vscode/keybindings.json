@@ -265,6 +265,11 @@
         "when": "editorFocus"
     },
     {
+        "key": "ctrl+a shift+q",
+        "command": "workbench.action.closeEditorsAndGroup",
+        "when": "editorFocus"
+    },
+    {
         "key": "ctrl+p",
         "command": "extension.vim_ctrl+p",
         "when": "suggestWidgetVisible && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
@@ -279,4 +284,25 @@
         "command": "editor.action.gotoDeclaration",
         "when": "vim.mode == 'Normal' && editorTextFocus"
     }
+    // Split Horizon
+    {
+        "key": "ctrl+a l",
+        "command": "workbench.action.increaseViewWidth",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+a h",
+        "command": "workbench.action.decreaseViewWidth",
+        "when": "editorFocus"
+    }, // group width increase or decrease
+    {
+        "key": "ctrl+a j",
+        "command": "workbench.action.increaseViewHeight",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+a k",
+        "command": "workbench.action.decreaseViewHeight",
+        "when": "editorFocus"
+    }, 
 ]
