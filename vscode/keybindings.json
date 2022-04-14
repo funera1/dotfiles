@@ -283,7 +283,7 @@
         "key": "ctrl+d",
         "command": "editor.action.gotoDeclaration",
         "when": "vim.mode == 'Normal' && editorTextFocus"
-    }
+    },
     // Split Horizon
     {
         "key": "ctrl+a l",
@@ -304,5 +304,5 @@
         "key": "ctrl+a k",
         "command": "workbench.action.decreaseViewHeight",
         "when": "editorFocus"
-    }, 
+    } 
 ]
