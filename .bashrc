@@ -247,7 +247,8 @@ fzf-git-checkout() {
 }
 alias gb='fzf-git-branch'
 alias gco='fzf-git-checkout'
-alias gp='git push'
+alias gps='git push'
+alias gpl='git pull'
 alias gcm='git commit -m'
 alias gs='git status'
 alias ga='git add'

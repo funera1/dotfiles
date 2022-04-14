@@ -113,5 +113,6 @@
     "vscode-neovim.neovimInitVimPaths.linux": "/home/funera1/.config/nvim/init.vim",
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
     "workbench.iconTheme": "Monokai Pro Icons",
+    "editor.minimap.enabled": false,
  
 }
