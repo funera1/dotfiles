@@ -252,6 +252,8 @@ alias gpl='git pull'
 alias gcm='git commit -m'
 alias gs='git status'
 alias ga='git add'
+alias gl='git log'
+alias gp='git push'
 
 
 # xsel
