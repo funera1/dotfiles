@@ -157,7 +157,8 @@
     // ペースト
     {
         "key": "p",
-        "command": "filesExplorer.copfilesExplorer.paste",
+        // "command": "filesExplorer.copyfilesExplorer.paste",
+        "command": "filesExplorer.paste",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     // sidebar, terminal, editor移動をvimっぽく
@@ -304,5 +305,10 @@
         "key": "ctrl+a k",
         "command": "workbench.action.decreaseViewHeight",
         "when": "editorFocus"
-    } 
+    }, // 宣言箇所に移動
+    {
+        "key": "ctrl+u ctrl+d",
+        "command": "editor.action.goToDeclaration",
+        "when": "editorFocus"
+    },
 ]
