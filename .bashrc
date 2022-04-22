@@ -202,14 +202,14 @@ alias xmod='xmodmap ~/.xmodmap'
 alias grepAll="find ./ -type f | xargs grep $1"
 
 # Git
-function gitmain() {
+function gitdaig() {
   set -x
   git config --global user.name "daigo-f"
   git config --global user.email "daigo.fujii@skewers.me"
   set +x
 }
 
-function gitsub() {
+function gitfune() {
   set -x
   git config --global user.name "funera1"
   git config --global user.email "funeral7776@gmail.com"
