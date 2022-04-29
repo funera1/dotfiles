@@ -157,7 +157,8 @@
     // ペースト
     {
         "key": "p",
-        "command": "filesExplorer.copfilesExplorer.paste",
+        // "command": "filesExplorer.copyfilesExplorer.paste",
+        "command": "filesExplorer.paste",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     // sidebar, terminal, editor移動をvimっぽく
@@ -179,7 +180,7 @@
     {
         "key": "ctrl+h",
         "command": "workbench.action.toggleSidebarVisibility",
-        "when": "!filesExplorerFocus && vim.mode == 'Normal'"
+        "when": "filesExplorerFocus && vim.mode == 'Normal'"
     },
     {
         "key": "ctrl+j",
@@ -202,7 +203,7 @@
         "when": "terminalFocus"
     },
     {
-        "key": "capslock ctrl+home",
+        "key": "home home",
         "command": "editor.action.startFindReplaceAction",
         "when": "editorFocus || editorIsOpen"
     },
@@ -230,38 +231,84 @@
     },
     // tmux
     {
-        "key": "ctrl+t ctrl+h",
+        "key": "ctrl+a ctrl+h",
         "command": "workbench.action.focusLeftGroup",
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+t ctrl+l",
+        "key": "ctrl+a ctrl+l",
         "command": "workbench.action.focusRightGroup",
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+t ctrl+j",
+        "key": "ctrl+a ctrl+j",
         "command": "workbench.action.focusBelowGroup",
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+t ctrl+k",
+        "key": "ctrl+a ctrl+k",
         "command": "workbench.action.focusAboveGroup",
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+t shift+\\",
+        "key": "ctrl+a shift+\\",
         "command": "workbench.action.splitEditor",
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+t -",
+        "key": "ctrl+a -",
         "command": "workbench.action.splitEditorOrthogonal",
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+t ctrl+q",
+        "key": "ctrl+a ctrl+q",
         "command": "workbench.action.closeActiveEditor",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+a shift+q",
+        "command": "workbench.action.closeEditorsAndGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "extension.vim_ctrl+p",
+        "when": "suggestWidgetVisible && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-extension.vim_ctrl+p",
+        "when": "suggestWidgetVisible && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "editor.action.gotoDeclaration",
+        "when": "vim.mode == 'Normal' && editorTextFocus"
+    },
+    // Split Horizon
+    {
+        "key": "ctrl+a l",
+        "command": "workbench.action.increaseViewWidth",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+a h",
+        "command": "workbench.action.decreaseViewWidth",
+        "when": "editorFocus"
+    }, // group width increase or decrease
+    {
+        "key": "ctrl+a j",
+        "command": "workbench.action.increaseViewHeight",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+a k",
+        "command": "workbench.action.decreaseViewHeight",
+        "when": "editorFocus"
+    }, // 宣言箇所に移動
+    {
+        "key": "ctrl+u ctrl+d",
+        "command": "editor.action.goToDeclaration",
         "when": "editorFocus"
     },
 ]

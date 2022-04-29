@@ -273,3 +273,8 @@ alias pbpaste='xsel --clipboard --output'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# nvim
+alias vim='nvim'
+
+# party parrot
+alias parrot='curl parrot.live'
