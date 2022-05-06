@@ -75,7 +75,7 @@
     {
         "key": "ctrl+k",
         "command": "cursorUp",
-        "when": "editorTextFocus && !editorReadOnly && vim.mode == 'Insrt'"
+        "when": "editorTextFocus && !editorReadOnly && vim.mode == 'Insert'"
     },
     {
         "key": "ctrl+t",
@@ -163,12 +163,12 @@
     },
     // sidebar, terminal, editor移動をvimっぽく
     {
-        "key": "ctrl+k ctrl+s",
+        "key": "ctrl+a ctrl+s",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "filesExplorerFocus"
     },
     {
-        "key": "ctrl+k ctrl+s",
+        "key": "ctrl+a ctrl+s",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "!filesExplorerFocus"
     },
