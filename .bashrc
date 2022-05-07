@@ -267,3 +267,4 @@ alias vim='nvim'
 
 # party parrot
 alias parrot='curl parrot.live'
+
