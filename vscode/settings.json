@@ -116,5 +116,4 @@
     "editor.minimap.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
- 
 }

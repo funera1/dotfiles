@@ -40,6 +40,17 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+# git status
+function prompt_command {
+	# Check if we are inside a git repository
+	if git status > /dev/null 2>&1; then
+		# Only get the name of the branch
+		export GIT_STATUS=$(git status | grep 'On branch' | cut -b 10-)
+	else
+		export GIT_STATUS=""
+	fi
+}
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -57,7 +68,8 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+   # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\$GIT_STATUS@\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+	  PS1='\[\e[1;32m\]\u@\h\[\e[m\]:\[\e[1;34m\]\W\[\e[m\]$(__git_ps1 "(\[\e[1;31m\]%s\[\e[m\])")\$'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -253,7 +265,6 @@ alias gcm='git commit -m'
 alias gs='git status'
 alias ga='git add'
 alias gl='git log'
-alias gp='git push'
 
 
 # xsel
@@ -267,4 +278,3 @@ alias vim='nvim'
 
 # party parrot
 alias parrot='curl parrot.live'
-
