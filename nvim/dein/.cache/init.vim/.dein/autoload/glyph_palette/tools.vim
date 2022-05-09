@@ -1,0 +1,1 @@
+/home/funera1/.config/nvim/dein/repos/github.com/lambdalisue/glyph-palette.vim/autoload/glyph_palette/tools.vim

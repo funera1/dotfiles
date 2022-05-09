@@ -1,0 +1,1 @@
+/home/funera1/.config/nvim/dein/repos/github.com/ulwlu/elly.vim/autoload/lightline/colorscheme/elly.vim

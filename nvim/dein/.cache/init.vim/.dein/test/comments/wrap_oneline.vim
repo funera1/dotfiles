@@ -1,0 +1,1 @@
+/home/funera1/.config/nvim/dein/repos/github.com/tyru/caw.vim/test/comments/wrap_oneline.vim

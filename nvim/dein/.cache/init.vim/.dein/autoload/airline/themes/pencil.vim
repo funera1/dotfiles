@@ -1,0 +1,1 @@
+/home/funera1/.config/nvim/dein/repos/github.com/preservim/vim-colors-pencil/autoload/airline/themes/pencil.vim
