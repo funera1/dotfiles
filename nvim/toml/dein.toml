@@ -48,3 +48,13 @@ repo = 'ulwlu/elly.vim'
 
 [[plugins]]
 repo = 'tyru/caw.vim.git'
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_add = '''
+    let g:rainbow_active = 1
+'''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
