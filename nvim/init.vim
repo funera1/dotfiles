@@ -1,1 +1,1 @@
-/home/funera1/.vimrc
+../.vimrc

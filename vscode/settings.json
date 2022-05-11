@@ -116,4 +116,9 @@
     "editor.minimap.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
+    "[plaintext]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false
+    },
+    "workbench.editor.untitled.hint": "hidden",
 }
