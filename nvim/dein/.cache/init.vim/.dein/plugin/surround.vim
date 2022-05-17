@@ -1,0 +1,1 @@
+/home/funera1/.config/nvim/dein/repos/github.com/tpope/vim-surround/plugin/surround.vim

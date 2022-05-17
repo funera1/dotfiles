@@ -1,0 +1,1 @@
+/home/funera1/.config/nvim/dein/repos/github.com/lambdalisue/fern-git-status.vim/autoload/fern_git_status/process.vim
