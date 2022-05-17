@@ -14,7 +14,7 @@ alias gs='git status'
 alias ga='git add'
 alias gps='git push'
 alias gpl='git pull'
-alias gcm='git commit'
+alias gcm='git commit -m'
 
 #  vim
 alias vim='nvim'
