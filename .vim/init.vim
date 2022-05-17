@@ -1,1 +1,0 @@
-/home/funera1/.vimrc
