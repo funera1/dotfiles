@@ -1,0 +1,17 @@
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
+
+alias j='z'
+set -g theme_display_git_master_branch yes
+
+
+# git
+alias gs='git status'
+alias ga='git add'
+alias gps='git push'
+alias gpl='git pull'
+alias gcm='git commit'
+
+#  vim
+alias vim='nvim'
