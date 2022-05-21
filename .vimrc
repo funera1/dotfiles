@@ -481,6 +481,5 @@ function RUNCPP()
     e %:h/input.txt
 endfunction
 
-nnoremap <C-r> :call RUNCPP()<Enter>
 nnoremap <C-q> :only<Enter>
 nnoremap <C-q><C-a> :wqa<Enter>
