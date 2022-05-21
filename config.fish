@@ -7,6 +7,7 @@ alias j='z'
 set -g theme_display_git_master_branch yes
 set -g fishrc $HOME/.config/fish/config.fish
 set -g vimrc $HOME/.config/nvim/init.vim
+set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
 
 
 # git

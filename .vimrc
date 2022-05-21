@@ -254,8 +254,12 @@ nnoremap k gk
 syntax enable
 syntax on
 if has('nvim')
-    colorscheme elly
+    colorscheme gruvbox
     set termguicolors
+    let g:lightline = { 
+        \ 'colorscheme': 'gruvbox', 
+        \ }
+    let g:airline_theme='gruvbox'
 endif
 set t_Co=256
 "

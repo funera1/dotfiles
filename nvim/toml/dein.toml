@@ -41,10 +41,7 @@ repo = 'lambdalisue/glyph-palette.vim'
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'tpope/vim-commentary'
-
-[[plugins]]
-repo = 'ulwlu/elly.vim'
+repo = 'morhetz/gruvbox'
 
 [[plugins]]
 repo = 'tyru/caw.vim.git'
@@ -57,4 +54,5 @@ hook_add = '''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
+
 
