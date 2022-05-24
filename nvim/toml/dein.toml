@@ -11,7 +11,7 @@ hook_source = 'call coil398#init#coc#hook_source'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-    let g:lightline = { 'colorscheme': 'wombat' }
+    let g:lightline = { 'colorscheme': 'gruvbox' }
     set laststatus=2
     set noshowmode
 '''
@@ -58,3 +58,5 @@ hook_add = '''
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
+[[plugins]]
+repo = 'morhetz/gruvbox'
