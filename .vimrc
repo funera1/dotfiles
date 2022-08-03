@@ -288,6 +288,10 @@ set belloff=all
 
 "Esc->jj
 inoremap <silent> jj <ESC>
+noremap <silent> <C-'> <ESC>
+inoremap <silent> <C-'> <ESC>
+
+
 
 "縦移動素早く
 nnoremap <S-j> 5j
@@ -482,4 +486,10 @@ function RUNCPP()
 endfunction
 
 nnoremap <C-q> :only<Enter>
-nnoremap <C-q><C-a> :wqa<Enter>
+nnoremap <C-S-q> :wqa<Enter>
+
+
+" terminal
+:tnoremap <Esc> <C-\><C-n>
+command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
+autocmd TermOpen * startinsert

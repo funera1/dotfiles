@@ -55,4 +55,5 @@ hook_add = '''
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
-
+[[plugins]]
+repo = 'rust-lang/rust.vim'
