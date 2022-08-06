@@ -15,6 +15,13 @@ fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.ghcup/bin
 fish_add_path $GOPATH
 fish_add_path $GOBIN
+fish_add_path /usr/local/go/bin
+
+# unfreeze
+alias untargz='tar -zxvf'
+alias untarbz2='tar -jxvf'
+alias untarxz='tar -Jxvf'
+alias untar='tar -xvf'
 
 
 # git
