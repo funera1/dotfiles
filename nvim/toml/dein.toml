@@ -57,3 +57,6 @@ repo = 'cohama/lexima.vim'
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
+
+[[plugins]]
+repo = 'tanvirtin/monokai.nvim'

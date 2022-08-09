@@ -16,6 +16,7 @@ fish_add_path $HOME/.ghcup/bin
 fish_add_path $GOPATH
 fish_add_path $GOBIN
 fish_add_path /usr/local/go/bin
+fish_add_path /usr/local/android-studio/bin
 
 # unfreeze
 alias untargz='tar -zxvf'
