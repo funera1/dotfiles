@@ -245,7 +245,7 @@ if has('nvim')
     let g:lightline = { 
         \ 'colorscheme': 'molokai', 
         \ }
-    let g:airline_theme='molokai'
+    let g:airline_theme='monokai'
 endif
 set t_Co=256
 "
@@ -479,3 +479,6 @@ nnoremap <C-S-q> :wqa<Enter>
 :tnoremap <Esc> <C-\><C-n>
 command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
 autocmd TermOpen * startinsert
+
+" vim-go
+let g:go_fmt_command = "goimports"

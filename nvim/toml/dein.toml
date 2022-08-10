@@ -60,3 +60,9 @@ repo = 'rust-lang/rust.vim'
 
 [[plugins]]
 repo = 'tanvirtin/monokai.nvim'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+   GoInstallBinaries 
+'''
