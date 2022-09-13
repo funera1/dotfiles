@@ -66,3 +66,6 @@ repo = 'fatih/vim-go'
 hook_add = '''
    GoInstallBinaries 
 '''
+
+[[plugins]]
+repo = 'dag/vim-fish'
