@@ -236,6 +236,7 @@ set wildmode=list:longest
 " " 折り返し時に表示行単位での移動できるようにする
 nnoremap j gj
 nnoremap k gk
+
 " シンタックスハイライトの有効化
 syntax enable
 syntax on
@@ -283,127 +284,6 @@ inoremap <silent> <C-'> <ESC>
 nnoremap <S-j> 5j
 nnoremap <S-k> 5k
 
-"括弧補完
-"inoremap {<Enter> {}<ESC>i<Enter><ESC><S-o>
-
-"括弧の補完。次の文字が[空白, 何もない, ), ]]なら補完する。そうでないなら補完しない
-"function! BracketComplement(num) abort
-"    let LBASE = ["(", "[", "{"]
-"    let RBASE = [")", "]", "}"]
-"    let pos = col(".") - 1
-"    let str = getline(".")
-"    let tmpl = pos == 0 ? "" : str[:pos - 1]
-"    let tmpr = str[pos:]
-"
-"    let out = ""
-"    let flg = 0
-"    let List = [' ', '']
-"    for c in List
-"        if tmpr[0] == c
-"            let flg = 1
-"        endif
-"    endfor
-"    if flg
-"        let tmpl = tmpl . LBASE[a:num] . RBASE[a:num]
-"    else
-"        let tmpl = tmpl . LBASE[a:num]
-"    endif
-"    let str = tmpl . tmpr
-"    call setline('.', str)
-"    call cursor(line("."), pos+2)
-"    return out
-"endfunction
-"
-""括弧から出る
-"function! BracketOut(num) abort
-"    let List = [')', ']', '}']
-"    let pos = col(".") - 1
-"    let str = getline(".")
-"    let tmpl = pos == 0 ? "" : str[:pos - 1]
-"    let tmpr = str[pos:]
-"    if str[pos] == List[a:num]
-"        call cursor(line("."), pos+2)
-"    else 
-"        let str = tmpl . List[a:num] . tmpr
-"        call setline('.', str)
-"        call cursor(line("."), pos+2)
-"    endif
-"    return ''
-"endfunction
-"
-""クオーテーションの操作
-"function! QuotationFunc(num) abort
-"    let LBASE = ['"', "'"]
-"    let RBASE = ['"', "'"]
-"    let pos = col(".") - 1
-"    let str = getline(".")
-"    let tmpl = pos == 0 ? "" : str[:pos - 1]
-"    let tmpr = str[pos:]
-"    if str[pos] == LBASE[a:num]
-"        call cursor(line("."), pos+2)
-"    else 
-"        let flg = 0
-"        let List = [' ', '', ')', ']']
-"        for c in List
-"            if tmpr[0] == c
-"                let flg = 1
-"            endif
-"        endfor
-"        if flg
-"            let tmpl = tmpl . LBASE[a:num] . RBASE[a:num]
-"        else
-"            let tmpl = tmpl . LBASE[a:num]
-"        endif
-"        let str = tmpl . tmpr
-"        call setline('.', str)
-"        call cursor(line("."), pos+2)
-"    endif
-"    return ""
-"endfunction
-""括弧に割り当て
-"inoremap <silent> ( <C-r>=BracketComplement(0)<CR>
-"inoremap <silent> [ <C-r>=BracketComplement(1)<CR>
-"inoremap <silent> { <C-r>=BracketComplement(2)<CR>
-"inoremap <silent> ) <C-r>=BracketOut(0)<CR>
-"inoremap <silent> ] <C-r>=BracketOut(1)<CR>
-"inoremap <silent> } <C-r>=BracketOut(2)<CR>
-"inoremap <silent> " <C-r>=QuotationFunc(0)<CR>
-"inoremap <silent> ' <C-r>=QuotationFunc(1)<CR>
-"
-""対応する括弧を消す
-"function! DeleteParenthesesAdjoin() abort
-"    let pos = col(".") - 1
-"    let str = getline(".")
-"    let parentLList = ["(", "[", "{", "\'", "\""]
-"    let parentRList = [")", "]", "}", "\'", "\""]
-"    let cnt = 0
-"
-"    let output = ""
-"
-"    "カーソルが行末の場合
-"    if pos == strlen(str)
-"        return "\b"
-"    endif
-"    for c in parentLList
-"        "カーソルの左右が同種の括弧
-"        if str[pos-1] == c && str[pos] == parentRList[cnt]
-"            call cursor(line("."), pos + 2)
-"            let output = "\b"
-"            break
-"        endif
-"        let cnt += 1
-"    endfor
-"    return output."\b"
-"endfunction
-""BackSpaceに割り当て
-"inoremap <silent> <BS> <C-r>=DeleteParenthesesAdjoin()<CR>
-
-
-" coc
-" [
-"   {"text": "(e)dit", "value": "edit"}
-"   {"text": "(n)ew", "value": "new"}
-" ]
 " NOTE: text must contains '()' to detect input and its must be 1 character
 function! ChoseAction(actions) abort
     echo join(map(copy(a:actions), { _, v -> v.text }), ", ") .. ": "
@@ -448,8 +328,6 @@ nnoremap <silent> <C-t> :<C-u>call CocActionAsync('jumpDefinition', CocJumpActio
 
 "" 全選択
 nnoremap <Leader>a ggVG
-nnoremap <Leader>b :echo "Good"<CR>
-nnoremap <Leader>c <Home>
 
 "" Fern
 nnoremap <C-f> :Fern . -reveal=% -drawer -toggle -width=40<CR>
