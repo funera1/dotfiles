@@ -41,10 +41,7 @@ repo = 'lambdalisue/glyph-palette.vim'
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'tpope/vim-commentary'
-
-[[plugins]]
-repo = 'ulwlu/elly.vim'
+repo = 'morhetz/gruvbox'
 
 [[plugins]]
 repo = 'tyru/caw.vim.git'
@@ -59,7 +56,16 @@ hook_add = '''
 repo = 'cohama/lexima.vim'
 
 [[plugins]]
-repo = 'morhetz/gruvbox'
+repo = 'rust-lang/rust.vim'
 
 [[plugins]]
-repo = 'skanehira/preview-markdown.vim'
+repo = 'tanvirtin/monokai.nvim'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+   GoInstallBinaries 
+'''
+
+[[plugins]]
+repo = 'dag/vim-fish'

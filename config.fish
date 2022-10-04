@@ -1,12 +1,28 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
+starship init fish | source
 
 alias j='z'
 # PATH
 set -g theme_display_git_master_branch yes
 set -g fishrc $HOME/.config/fish/config.fish
 set -g vimrc $HOME/.config/nvim/init.vim
+set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
+set -x GOPATH $HOME/go
+set -x GOBIN $HOME/go/bin
+fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.ghcup/bin
+fish_add_path $GOPATH
+fish_add_path $GOBIN
+fish_add_path /usr/local/go/bin
+fish_add_path /usr/local/android-studio/bin
+
+# unfreeze
+alias untargz='tar -zxvf'
+alias untarbz2='tar -jxvf'
+alias untarxz='tar -Jxvf'
+alias untar='tar -xvf'
 
 
 # git
@@ -41,7 +57,7 @@ function fzf-git-checkout
 
     local branch
 
-    set branch $(fzf-git-branch)
+    set branch $fzf-git-branch
     if test "$branch" = "" 
         echo "No branch selected."
         return
@@ -71,6 +87,7 @@ function runcpp
         echo -e "[\e[32m+\e[0m] successful complie"
         echo -e "[\e[34mx\e[0m] run ./xxx.out"
         ./xxx.out <input.txt> output.txt
+        cat output.txt
     end
 end
 
@@ -94,4 +111,11 @@ alias efish='vim $fishrc'
 alias sfish='source $fishrc'
 
 # rust
+
+# python
+alias python='python3'
+alias py='python'
+
+#set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/funera1/.ghcup/bin # ghcup-env
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/funera1/.ghcup/bin $PATH # ghcup-env
 
