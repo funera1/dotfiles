@@ -60,3 +60,6 @@ repo = 'cohama/lexima.vim'
 
 [[plugins]]
 repo = 'morhetz/gruvbox'
+
+[[plugins]]
+repo = 'skanehira/preview-markdown.vim'
