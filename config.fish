@@ -1,45 +1,45 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
+
 starship init fish | source
 
 alias j='z'
 # PATH
+# -g: global
+# -x: export
+set -x GOPATH $HOME/go
+set -x PATH $PATH $GOPATH/bin
+set -x EDITOR nvim
+set -x LC_CTYPE en_US.UTF-8
 set -g theme_display_git_master_branch yes
 set -g fishrc $HOME/.config/fish/config.fish
 set -g vimrc $HOME/.config/nvim/init.vim
-set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
-set -x GOPATH $HOME/go
-set -x GOBIN $HOME/go/bin
-fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.ghcup/bin
-fish_add_path $GOPATH
-fish_add_path $GOBIN
-fish_add_path /usr/local/go/bin
-fish_add_path /usr/local/android-studio/bin
-
-# unfreeze
-alias untargz='tar -zxvf'
-alias untarbz2='tar -jxvf'
-alias untarxz='tar -Jxvf'
-alias untar='tar -xvf'
 
 
 # git
-alias gs='git status'
+alias gs='git status --short'
 alias ga='git add'
 alias gps='git push'
+alias gu='git push --set-upstream origin'
 alias gpl='git pull'
 alias gcm='git commit -m'
+alias gl='git log'
+alias groot='git rev-parse --show-superproject-working-tree --show-toplevel | head -1'
 
 #  vim
 alias vim='nvim'
+alias vif='nvim $(fzf)'
 
 # xmodmap
 alias xmod='xmodmap ~/.xmodmap'
 
 # party parrot
 alias parrot='curl parrot.live'
+
+# kubernetes
+alias k='kubectl'
+alias kx='kubectx'
 
 # fzf
 function fzf-git-branch
@@ -57,7 +57,7 @@ function fzf-git-checkout
 
     local branch
 
-    set branch $fzf-git-branch
+    set branch $(fzf-git-branch)
     if test "$branch" = "" 
         echo "No branch selected."
         return
@@ -86,14 +86,14 @@ function runcpp
     else
         echo -e "[\e[32m+\e[0m] successful complie"
         echo -e "[\e[34mx\e[0m] run ./xxx.out"
-        ./xxx.out <input.txt> output.txt
-        cat output.txt
+        ./xxx.out
     end
+    rm xxx.out
 end
 
 function runcpp-vim
     echo -e "g++ -std=gnu++17 -Wall -Wextra -O2 $argv[1] -o xxx.out"
-    g++ -std=gnu++17 -Wall -Wextra -O2 $1 -o xxx.out
+    g++ -std=gnu++17 -Wall -Wextra -O2 $argv[1] -o xxx.out
 
     if test $status -ne 0
         echo -e "compile failed"
@@ -106,6 +106,7 @@ end
 
 # vimrc
 alias evim='vim $vimrc'
+alias bim='nvim -b'
 # fishrc
 alias efish='vim $fishrc'
 alias sfish='source $fishrc'
@@ -116,6 +117,15 @@ alias sfish='source $fishrc'
 alias python='python3'
 alias py='python'
 
-#set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/funera1/.ghcup/bin # ghcup-env
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/funera1/.ghcup/bin $PATH # ghcup-env
 
+# gcc
+alias g++='g++ -std=c++20'
+
+# tar解凍
+alias untargz="tar -zxvf "
+alias untarbz2="tar -Jxvf "
+alias untar="tar -xvf "
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/funera1/google-cloud-sdk/path.fish.inc' ]; . '/home/funera1/google-cloud-sdk/path.fish.inc'; end
