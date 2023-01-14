@@ -1,1 +1,0 @@
-/home/funera1/.config/nvim/dein/repos/github.com/tyru/caw.vim/macros/make-release-zip.sh

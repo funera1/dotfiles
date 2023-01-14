@@ -1,1 +1,0 @@
-/home/funera1/.config/nvim/dein/repos/github.com/preservim/vim-colors-pencil/colors/pencil.vim
