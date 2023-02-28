@@ -1,48 +1,47 @@
 "dein Scripts-----------------------------
-if &compatible
-    set nocompatible               " Be iMproved
-endif
+" Ward off unexpected things that your distro might have made, as
+" well as sanely reset options when re-sourcing .vimrc
+set nocompatible
 
-" Required:
-set runtimepath+=/Users/s21286/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+" Set dein base path (required)
+let s:dein_base = '~/.cache/dein/'
 
-" Required:
-call dein#begin('/Users/s21286/.config/nvim/dein')
+" Set dein source path (required)
+let s:dein_src = '~/.cache/dein/repos/github.com/Shougo/dein.vim'
 
-" プラグインリストを収めたTOMLファイル
-" 予めTOMLファイルを用意しておく
+" Set dein runtime path (required)
+execute 'set runtimepath+=' . s:dein_src
+
+" Call dein initialization (required)
+call dein#begin(s:dein_base)
+
 let s:toml_dir = $HOME . '/.config/nvim/toml'
-let s:toml     = s:toml_dir . '/dein.toml'
-let s:lazy_toml     = s:toml_dir . '/dein_lazy.toml'
+let s:toml = s:toml_dir . '/dein.toml'
+let s:lazy_toml = s:toml_dir . '/dein_lazy.toml'
 
-" TOMLを読み込み、キャッシュしておく
-call dein#load_toml(s:toml,      {'lazy': 0})
-call dein#load_toml(s:lazy_toml, {'lazy': 1})
+call dein#load_toml(s:toml,      #{ lazy: 0 })
+call dein#load_toml(s:lazy_toml, #{ lazy: 1 })
 
-" Let dein manage dein
-" Required:
-call dein#add('/Users/s21286/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
+call dein#add(s:dein_src)
 
-if dein#check_install()
-    call dein#install()
+" Finish dein initialization (required)
+call dein#end()
+call dein#save_state()
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
+
+" Enable syntax highlighting
+if has('syntax')
+  syntax on
 endif
 
-" Add or remove your plugins here like this:
-"call dein#add('Shougo/neosnippet.vim')
-"call dein#add('Shougo/neosnippet-snippets')
-
-" Required:
-call dein#end()
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
+" Uncomment if you want to install not-installed plugins on startup.
 "if dein#check_install()
-"  call dein#install()
+" call dein#install()
 "endif
-
 "End dein Scripts-------------------------
 
 
@@ -77,18 +76,25 @@ else
     set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
+" other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
@@ -258,8 +264,8 @@ nnoremap k gk
 syntax enable
 syntax on
 if has('nvim')
-    set termguicolors
     colorscheme monokai
+    set termguicolors
 endif
 set t_Co=256
 "
@@ -464,31 +470,6 @@ nnoremap <Leader>c <Home>
 "" Fern
 nnoremap <C-f> :Fern . -reveal=% -drawer -toggle -width=40<CR>
 
-function! Fern_mapping_fzf_customize_option(spec)
-    let a:spec.options .= ' --multi'
-    " Note that fzf#vim#with_preview comes from fzf.vim
-    if exists('*fzf#vim#with_preview')
-        return fzf#vim#with_preview(a:spec)
-    else
-        return a:spec
-    endif
-endfunction
-
-function! Fern_mapping_fzf_before_all(dict)
-    if !len(a:dict.lines)
-        return
-    endif
-    return a:dict.fern_helper.async.update_marks([])
-endfunction
-
-function! s:reveal(dict)
-    execute "FernReveal -wait" a:dict.relative_path
-    execute "normal \<Plug>(fern-action-mark:set)"
-endfunction
-
-let g:Fern_mapping_fzf_file_sink = function('s:reveal')
-let g:Fern_mapping_fzf_dir_sink = function('s:reveal')
-
 "" vimrc
 
 "" comment out
@@ -509,56 +490,3 @@ endfunction
 nnoremap <C-r> :call RUNCPP()<Enter>
 nnoremap <C-q> :only<Enter>
 nnoremap <C-q><C-a> :wqa<Enter>
-
-" vim-go
-let g:go_fmt_command = "goimports"
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-
-"" git操作
-" g]で前の変更箇所へ移動
-nnoremap g[ :GitGutterPrevHunk<CR>
-nnoremap g[ :GitGutterNextHunk<CR>
-
-"" tig-explorer.vim
-" tigを開く
-nnoremap <Leader>t :TigOpenProjectRootDir<CR>
-" 現在のファイルの履歴を見る
-nnoremap <Leader>T :TigOpenCurrentFile<CR>
-" パターンでtig grepする
-nnoremap <Leader>g :TigGrep<CR>
-" tig grepした内容を再呼び出しする
-nnoremap <Leader>r :TigGrepResume<CR>
-" 選択中のキーワードでtig grepする
-vnoremap <Leader>g y:TigGrep<Space><C-R>"<CR>
-" カーソル下のキーワードでtig grepする
-nnoremap <Leader>cg :<C-u>:TigGrep<Space><C-R><C-W><CR>
-" 現在のカーソル位置でtig blameする
-nnoremap <Leader>b :TigBlame<CR>
-
-" wintabs
-let g:wintabs_autoclose_vim = 1
-
-map <C-n> <Plug>(wintabs_previous)
-map <C-p> <Plug>(wintabs_next)
-map <C-q> <Plug>(wintabs_close) 
-map <C-T>u <Plug>(wintabs_undo) 
-map <C-T><C-o> <Plug>(wintabs_only) # 現在のバッファ以外閉じる
-map <leader>> <cmd>WintabsMove 1<cr> # タブラインの表示位置を右へ移動
-map <leader><lt> <cmd>WintabsMove -1<cr> # タブラインの表示位置を左へ移動
-map <C-w><C-l> <Plug>(wintabs_move_to_window_right) # 右のウィンドウのタブラインへ移動
-map <C-w><C-h> <Plug>(wintabs_move_to_window_left) # 左のウィンドウのタブラインへ移動
-map <C-w><C-k> <Plug>(wintabs_move_to_window_above) # 上のウィンドウのタブラインへ移動
-map <C-w><C-j> <Plug>(wintabs_move_to_window_below) # 下のウィンドウのタブラインへ移動
-
-" vim-delve
-nmap <silent> <Leader>9 :DlvToggleBreakpoint<CR>
-nmap <silent> <Leader>5 :DlvDebug<CR>
-
-" vim-go debug
-nmap ;d :GoDebugBreakpoint<CR>
-nmap ;s :GoDebugStep<CR>
-nmap ;c :GoDebugContinue<CR>
-:command Dlv GoDebugStart
-:command DlvR GoDebugReStart
-:command DlvE GoDebugStop
-
