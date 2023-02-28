@@ -42,6 +42,7 @@ syntax enable
 "End dein Scripts-------------------------
 
 
+
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
 set encoding=utf-8
@@ -53,41 +54,50 @@ set hidden
 set nobackup
 set nowritebackup
 
+" Give more space for displaying messages.
+set cmdheight=2
+
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
 
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
+else
+    set signcolumn=yes
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+    inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -100,15 +110,17 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
+" Use <Leader>K to show documentation in preview window.
+nnoremap <silent>  <Leader>k:call <SID>show_documentation()<CR>
 
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
@@ -122,11 +134,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying codeAction to the selected region.
@@ -155,12 +167,12 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges.
@@ -238,17 +250,12 @@ set wildmode=list:longest
 " " 折り返し時に表示行単位での移動できるようにする
 nnoremap j gj
 nnoremap k gk
-
 " シンタックスハイライトの有効化
 syntax enable
 syntax on
 if has('nvim')
-    colorscheme monokai
+    colorscheme elly
     set termguicolors
-    let g:lightline = { 
-        \ 'colorscheme': 'monokai', 
-        \ }
-    let g:airline_theme='monokai'
 endif
 set t_Co=256
 "
@@ -276,16 +283,133 @@ set clipboard=unnamedplus
 set belloff=all
 
 "Esc->jj
-" inoremap <silent> jj <ESC>
-noremap <silent> <C-'> <ESC>
-inoremap <silent> <C-'> <ESC>
-
-
+inoremap <silent> jj <ESC>
 
 "縦移動素早く
 nnoremap <S-j> 5j
 nnoremap <S-k> 5k
 
+"括弧補完
+"inoremap {<Enter> {}<ESC>i<Enter><ESC><S-o>
+
+"括弧の補完。次の文字が[空白, 何もない, ), ]]なら補完する。そうでないなら補完しない
+"function! BracketComplement(num) abort
+"    let LBASE = ["(", "[", "{"]
+"    let RBASE = [")", "]", "}"]
+"    let pos = col(".") - 1
+"    let str = getline(".")
+"    let tmpl = pos == 0 ? "" : str[:pos - 1]
+"    let tmpr = str[pos:]
+"
+"    let out = ""
+"    let flg = 0
+"    let List = [' ', '']
+"    for c in List
+"        if tmpr[0] == c
+"            let flg = 1
+"        endif
+"    endfor
+"    if flg
+"        let tmpl = tmpl . LBASE[a:num] . RBASE[a:num]
+"    else
+"        let tmpl = tmpl . LBASE[a:num]
+"    endif
+"    let str = tmpl . tmpr
+"    call setline('.', str)
+"    call cursor(line("."), pos+2)
+"    return out
+"endfunction
+"
+""括弧から出る
+"function! BracketOut(num) abort
+"    let List = [')', ']', '}']
+"    let pos = col(".") - 1
+"    let str = getline(".")
+"    let tmpl = pos == 0 ? "" : str[:pos - 1]
+"    let tmpr = str[pos:]
+"    if str[pos] == List[a:num]
+"        call cursor(line("."), pos+2)
+"    else 
+"        let str = tmpl . List[a:num] . tmpr
+"        call setline('.', str)
+"        call cursor(line("."), pos+2)
+"    endif
+"    return ''
+"endfunction
+"
+""クオーテーションの操作
+"function! QuotationFunc(num) abort
+"    let LBASE = ['"', "'"]
+"    let RBASE = ['"', "'"]
+"    let pos = col(".") - 1
+"    let str = getline(".")
+"    let tmpl = pos == 0 ? "" : str[:pos - 1]
+"    let tmpr = str[pos:]
+"    if str[pos] == LBASE[a:num]
+"        call cursor(line("."), pos+2)
+"    else 
+"        let flg = 0
+"        let List = [' ', '', ')', ']']
+"        for c in List
+"            if tmpr[0] == c
+"                let flg = 1
+"            endif
+"        endfor
+"        if flg
+"            let tmpl = tmpl . LBASE[a:num] . RBASE[a:num]
+"        else
+"            let tmpl = tmpl . LBASE[a:num]
+"        endif
+"        let str = tmpl . tmpr
+"        call setline('.', str)
+"        call cursor(line("."), pos+2)
+"    endif
+"    return ""
+"endfunction
+""括弧に割り当て
+"inoremap <silent> ( <C-r>=BracketComplement(0)<CR>
+"inoremap <silent> [ <C-r>=BracketComplement(1)<CR>
+"inoremap <silent> { <C-r>=BracketComplement(2)<CR>
+"inoremap <silent> ) <C-r>=BracketOut(0)<CR>
+"inoremap <silent> ] <C-r>=BracketOut(1)<CR>
+"inoremap <silent> } <C-r>=BracketOut(2)<CR>
+"inoremap <silent> " <C-r>=QuotationFunc(0)<CR>
+"inoremap <silent> ' <C-r>=QuotationFunc(1)<CR>
+"
+""対応する括弧を消す
+"function! DeleteParenthesesAdjoin() abort
+"    let pos = col(".") - 1
+"    let str = getline(".")
+"    let parentLList = ["(", "[", "{", "\'", "\""]
+"    let parentRList = [")", "]", "}", "\'", "\""]
+"    let cnt = 0
+"
+"    let output = ""
+"
+"    "カーソルが行末の場合
+"    if pos == strlen(str)
+"        return "\b"
+"    endif
+"    for c in parentLList
+"        "カーソルの左右が同種の括弧
+"        if str[pos-1] == c && str[pos] == parentRList[cnt]
+"            call cursor(line("."), pos + 2)
+"            let output = "\b"
+"            break
+"        endif
+"        let cnt += 1
+"    endfor
+"    return output."\b"
+"endfunction
+""BackSpaceに割り当て
+"inoremap <silent> <BS> <C-r>=DeleteParenthesesAdjoin()<CR>
+
+
+" coc
+" [
+"   {"text": "(e)dit", "value": "edit"}
+"   {"text": "(n)ew", "value": "new"}
+" ]
 " NOTE: text must contains '()' to detect input and its must be 1 character
 function! ChoseAction(actions) abort
     echo join(map(copy(a:actions), { _, v -> v.text }), ", ") .. ": "
@@ -330,6 +454,8 @@ nnoremap <silent> <C-t> :<C-u>call CocActionAsync('jumpDefinition', CocJumpActio
 
 "" 全選択
 nnoremap <Leader>a ggVG
+nnoremap <Leader>b :echo "Good"<CR>
+nnoremap <Leader>c <Home>
 
 "" Fern
 nnoremap <C-f> :Fern . -reveal=% -drawer -toggle -width=40<CR>
@@ -351,28 +477,6 @@ function RUNCPP()
     e %:h/input.txt
 endfunction
 
+nnoremap <C-r> :call RUNCPP()<Enter>
 nnoremap <C-q> :only<Enter>
-nnoremap <C-S-q> :wqa<Enter>
-
-
-" terminal
-:tnoremap <Esc> <C-\><C-n>
-command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
-autocmd TermOpen * startinsert
-
-" vim-go
-let g:go_fmt_command = "goimports"
-
-" mypy
-let g:syntastic_python_checkers=['mypy']
-
-" wintabs
-map <C-P> <Plug>(wintabs_previous)
-map <C-N> <Plug>(wintabs_next)
-map <C-B>c <Plug>(wintabs_close)
-map <C-B>u <Plug>(wintabs_undo)
-map <C-B>o <Plug>(wintabs_only)
-map <C-W>c <Plug>(wintabs_close_window)
-map <C-W>o <Plug>(wintabs_only_window)
-command! Tabc WintabsCloseVimtab
-command! Tabo WintabsOnlyVimtab
+nnoremap <C-q><C-a> :wqa<Enter>

@@ -11,7 +11,7 @@ hook_source = 'call coil398#init#coc#hook_source'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-    let g:lightline = { 'colorscheme': 'gruvbox' }
+    let g:lightline = { 'colorscheme': 'wombat' }
     set laststatus=2
     set noshowmode
 '''
@@ -41,7 +41,7 @@ repo = 'lambdalisue/glyph-palette.vim'
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'morhetz/gruvbox'
+repo = 'tpope/vim-commentary'
 
 [[plugins]]
 repo = 'tyru/caw.vim.git'
@@ -57,9 +57,6 @@ repo = 'cohama/lexima.vim'
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
-
-[[plugins]]
-repo = 'tanvirtin/monokai.nvim'
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -84,3 +81,24 @@ repo = 'Quramy/tsuquyomi'
 
 [[plugins]]
 repo = 'wsdjeg/dein-ui.vim'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'sickill/vim-monokai'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+
+[[plugins]]
+repo = 'LumaKernel/fern-mapping-fzf.vim'
+
+[[plugins]]
+repo = 'zefei/vim-wintabs'
+
+[[plugins]]
+repo = 'iberianpig/tig-explorer.vim'
+
+[[plugins]]
+repo = 'sebdah/vim-delve'
