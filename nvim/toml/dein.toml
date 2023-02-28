@@ -62,6 +62,9 @@ repo = 'rust-lang/rust.vim'
 repo = 'tanvirtin/monokai.nvim'
 
 [[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
 repo = 'fatih/vim-go'
 hook_add = '''
    GoInstallBinaries 
@@ -69,3 +72,15 @@ hook_add = '''
 
 [[plugins]]
 repo = 'dag/vim-fish'
+
+[[plugins]]
+repo = 'jjo/vim-cue'
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+
+[[plugins]]
+repo = 'Quramy/tsuquyomi'
+
+[[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
